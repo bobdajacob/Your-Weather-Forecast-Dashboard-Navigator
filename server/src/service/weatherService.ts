@@ -48,6 +48,7 @@ class WeatherService {
       throw new Error(`Error fetching weather data: ${response.statusText}`)
     }
     const data = await response.json();
+    console.log(data);
     return data;
   }
 
@@ -58,9 +59,9 @@ class WeatherService {
   }
 
   // TODO: Create buildGeocodeQuery method
-  private buildGeocodeQuery(city: string): string {
-    const cityName
-  }
+  // private buildGeocodeQuery(city: string): string {
+  //   const cityName
+  // }
 
   // TODO: Create buildWeatherQuery method
   private buildWeatherQuery(coordinates: Coordinates): string {
@@ -71,6 +72,7 @@ class WeatherService {
   // // TODO: Create fetchAndDestructureLocationData method
   private async fetchAndDestructureLocationData() {
     const locationData = await this.fetchLocationData(this.cityName);
+    const { lon, lat, cityName } = locationData
   }
 
   // // TODO: Create fetchWeatherData method
