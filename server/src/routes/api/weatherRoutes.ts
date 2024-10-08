@@ -9,7 +9,14 @@ const router = Router();
 router.post('/', (req: Request, res: Response) => {
   // TODO: GET weather data from city name
   const cityName = req.body.cityName;
-  const weatherData = weatherService.fetchWeatherData(cityName);
+  if (!cityName) {
+    return res.status(400).json({error: 'the city name is required'});
+  }
+  try {
+    const weatherData = await weatherService.fetchWeatherData(cityName);
+    return res.status(200).json(weatherData);
+  } catch error(error);
+  return res.status(500).json({error: 'it failed to fetch the weather data'});
   // TODO: save city to search history
 
 });

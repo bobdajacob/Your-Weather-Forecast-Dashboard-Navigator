@@ -42,13 +42,12 @@ class WeatherService {
 
   // TODO: Create fetchLocationData method
   private async fetchLocationData(query: string) {
-    const requestUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${this.APIkey}`;
-    const response = await fetch(requestUrl);
+    const geoUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${query}&appid=${this.APIkey}`;
+    const response = await fetch(geoUrl);
     if (!response.ok) {
       throw new Error(`Error fetching weather data: ${response.statusText}`)
     }
     const data = await response.json();
-    console.log(data);
     return data;
   }
 
@@ -59,9 +58,7 @@ class WeatherService {
   }
 
   // TODO: Create buildGeocodeQuery method
-  // private buildGeocodeQuery(city: string): string {
-  //   const cityName
-  // }
+  // private buildGeocodeQuery(city: string): string {}
 
   // TODO: Create buildWeatherQuery method
   private buildWeatherQuery(coordinates: Coordinates): string {
@@ -72,7 +69,8 @@ class WeatherService {
   // // TODO: Create fetchAndDestructureLocationData method
   private async fetchAndDestructureLocationData() {
     const locationData = await this.fetchLocationData(this.cityName);
-    const { lon, lat, cityName } = locationData
+    const coordinates = this.destructureLocationData(locationData);
+    return coordinates;
   }
 
   // // TODO: Create fetchWeatherData method
@@ -87,9 +85,16 @@ class WeatherService {
   }
 
   // // TODO: Build parseCurrentWeather method
-  // private parseCurrentWeather(response: any) {
+  // private parseCurrentWeather(response: any): Weather {
+  //   const city = response.city.name;
+  //   const date = response.list[0].dt;
+  //   const icon = response.list[0].weather[0].icon;
+  //   const iconDescription = response.list[0].weather[0].description;
+  //   const tempF = 
 
+  //   return new Weather(city, date, icon, iconDescription, tempF, windSpeed, humidity)
   // }
+
 
   // // TODO: Complete buildForecastArray method
   // private buildForecastArray(currentWeather: Weather, weatherData: any[]) {
